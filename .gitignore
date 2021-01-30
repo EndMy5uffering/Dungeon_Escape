@@ -9,6 +9,8 @@
 /DungeonEscape/Builds/
 /DungeonEscape/Logs/
 /DungeonEscape/MemoryCaptures/
+/DungeonEscape/*.csproj
+/DungeonEscape/*.sln
 
 # Visual Studio cache directory
 .vs/
