@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/DungeonEscape/[Ll]ibrary/
-/DungeonEscape/[Tt]emp/
-/DungeonEscape/[Oo]bj/
-/DungeonEscape/[Bb]uild/
-/DungeonEscape/[Bb]uilds/
-/DungeonEscape/[Ll]ogs/
-/DungeonEscape/[Mm]emoryCaptures/
+/DungeonEscape/Library/
+/DungeonEscape/Temp/
+/DungeonEscape/obj/
+/DungeonEscape/Build/
+/DungeonEscape/Builds/
+/DungeonEscape/Logs/
+/DungeonEscape/MemoryCaptures/
 
 # Visual Studio cache directory
 .vs/
