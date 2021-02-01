@@ -137,7 +137,7 @@ public class CharControll : MonoBehaviour
             float t = (Mathf.Sin(waddleTime) / 2.0f) + 0.5f;
             float x = PlayerModel.transform.rotation.eulerAngles.x;
             float y = PlayerModel.transform.rotation.eulerAngles.y;
-            float z = Mathf.Lerp(-20, 20, t);
+            float z = Mathf.Lerp(-10, 10, t);
             PlayerModel.transform.rotation = Quaternion.Euler(x, y, z);
         }
     }
