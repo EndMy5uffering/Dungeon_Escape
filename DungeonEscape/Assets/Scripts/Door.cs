@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Door : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class Door : MonoBehaviour
     {
         State0 = transform.rotation;
         State1 = transform.rotation * Quaternion.Euler(Axis * maxAngle);
+        CollectableHolder.OnFull += DoorOpen;
     }
 
     void Update()
@@ -42,14 +42,19 @@ public class Door : MonoBehaviour
         }
     }
 
+    public void DoorOpen() 
+    {
+        DoorOpenClose(true);
+    }
+
+    public void DoorClose() 
+    {
+        DoorOpenClose(false);
+    }
+
     public void DoorOpenClose(bool open) 
     {
         this.Open = open;
         animate = true;
-    }
-
-    public void OnInteract(InputAction.CallbackContext context) 
-    {
-        DoorOpenClose(!Open);
     }
 }

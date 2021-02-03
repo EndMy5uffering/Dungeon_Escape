@@ -11,6 +11,9 @@ public class CollectableHolder : MonoBehaviour
 
     private int current = 0;
 
+    public delegate void Full();
+    public static event Full OnFull;
+
     private void Awake()
     {
         foreach (GameObject obj in Collectables) 
@@ -30,6 +33,7 @@ public class CollectableHolder : MonoBehaviour
         obj.GetComponent<Collectable>().Animate = false;
         obj.transform.SetPositionAndRotation(Places[current].transform.position, Quaternion.LookRotation(Places[current].transform.forward, Places[current].transform.up));
         current++;
+        if (!hasFreePlace()) OnFull?.Invoke(); 
     }
 
     public bool hasFreePlace() 
