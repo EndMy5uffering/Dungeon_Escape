@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1876045303156681370}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
   Skull: {fileID: 3680599551549036807}
   PlayerModel: {fileID: 1876045301289520585}
   waddleSpeed: 8
-  doWaddle: 0
+  AllowJumping: 1
 --- !u!114 &1876045303156681374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +419,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9803ab6e-b767-4f2b-a59a-1674d4f6bfd1
     m_ActionName: Player/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 43b888e119cf32f4dad71800c61eb262, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 13772768-46f2-484b-97a9-63bfa1d6d001
+    m_ActionName: Player/Use[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

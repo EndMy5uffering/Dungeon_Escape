@@ -30,8 +30,9 @@ public class CharControll : MonoBehaviour
 
     private float waddleTime = 0f;
     public float waddleSpeed = 5f;
-    public bool doWaddle = false;
+    private bool doWaddle = false;
     private Vector2 prefPresed = new Vector2(-1,-1);
+    public bool AllowJumping = true;
 
     private void Awake()
     {
@@ -40,6 +41,11 @@ public class CharControll : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentSpeed = moveSpeed;
+    }
+
+    private void Start()
+    {
+
     }
 
     void Update()
@@ -104,9 +110,9 @@ public class CharControll : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context) 
     {
-       if(!grounded) doJump();
-       jumped = true;
-        HeadSwap();
+        if (!AllowJumping) return;
+        if(!grounded) doJump();
+        jumped = true;
     }
 
     private void doJump() 
