@@ -15,7 +15,21 @@ public class Door : MonoBehaviour
     public Vector3 Axis = new Vector3(0, 1, 0);
     private float deltaAngle = 0f;
 
+    public int DoorID = 0;
+
     private Quaternion State0, State1;
+
+    public delegate void DoorIsOpening(int DoorID);
+    public static event DoorIsOpening OnDoorOpening;
+
+    public delegate void DoorIsOpen(int DoorID);
+    public static event DoorIsOpen OnDoorIsOpen;
+
+    public delegate void DoorIsCloseing(int DoorID);
+    public static event DoorIsCloseing OnDoorCloseing;
+
+    public delegate void DoorIsClosed(int DoorID);
+    public static event DoorIsClosed OnDoorIsClosed;
 
     private void Awake()
     {
@@ -39,6 +53,16 @@ public class Door : MonoBehaviour
             deltaAngle = 0;
             animate = false;
             transform.rotation = Open ? State1 : State0;
+
+            if (Open)
+            {
+                OnDoorIsOpen?.Invoke(this.DoorID);
+            }
+            else 
+            {
+                OnDoorIsClosed?.Invoke(this.DoorID);
+            }
+
         }
     }
 
@@ -56,5 +80,15 @@ public class Door : MonoBehaviour
     {
         this.Open = open;
         animate = true;
+
+        if (Open)
+        {
+            OnDoorOpening?.Invoke(this.DoorID);
+        }
+        else 
+        {
+            OnDoorCloseing?.Invoke(this.DoorID);
+        }
+
     }
 }

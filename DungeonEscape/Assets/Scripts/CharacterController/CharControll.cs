@@ -15,7 +15,6 @@ public class CharControll : MonoBehaviour
     public float mouseSenitivity = 0.5f;
     public float mouseDempening = 0.99f;
     private float mouseX = 0;
-    private float mouseY = 0;
 
     private Transform scanner;
     private bool grounded = true;
@@ -34,6 +33,8 @@ public class CharControll : MonoBehaviour
     private Vector2 prefPresed = new Vector2(-1,-1);
     public bool AllowJumping = true;
 
+    public bool DisableControlls = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -43,22 +44,19 @@ public class CharControll : MonoBehaviour
         currentSpeed = moveSpeed;
     }
 
-    private void Start()
-    {
-
-    }
-
     void Update()
     {
         grounded = Physics.SphereCast(new Ray(scanner.position, Vector3.down), 0.2f);
-        moveChar();
         applyGravity();
+        if (DisableControlls) return;
+        moveChar();
         doLook();
         waddle();
     }
 
     public void OnWalk(InputAction.CallbackContext context) 
     {
+        if (DisableControlls) return;
         Vector2 dir = context.ReadValue<Vector2>().normalized;
         this.moveVel = new Vector3(dir.y, this.moveVel.y, dir.x);
         if (!(dir.x == 0.0f && dir.y == 0.0f))
@@ -75,12 +73,14 @@ public class CharControll : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context) 
     {
+        if (DisableControlls) return;
         Vector2 dir = context.ReadValue<Vector2>();
         mouseX += dir.x;
     }
 
     private void doLook()
     {
+        if (DisableControlls) return;
         if (Mathf.Abs(mouseX) < 0.2f)
         {
             mouseX = 0;
@@ -102,6 +102,7 @@ public class CharControll : MonoBehaviour
 
     private void moveChar() 
     {
+        if (DisableControlls) return;
         float dt = Time.deltaTime;
         Vector3 dir = transform.forward * moveVel.x + transform.up * moveVel.y + transform.right * moveVel.z;
         dir *= currentSpeed * dt;
@@ -110,13 +111,14 @@ public class CharControll : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context) 
     {
-        if (!AllowJumping) return;
+        if (!AllowJumping || DisableControlls) return;
         if(!grounded) doJump();
         jumped = true;
     }
 
     private void doJump() 
     {
+        if (DisableControlls) return;
         moveVel.y = JumpForce;
     }
 
@@ -155,6 +157,25 @@ public class CharControll : MonoBehaviour
         float y = PlayerModel.transform.rotation.eulerAngles.y;
         float z = 0;
         PlayerModel.transform.rotation = Quaternion.Euler(x, y, z);
+    }
+
+    public void DisableControlles() 
+    {
+        this.DisableControlls = true;
+        moveVel = new Vector3(0,0,0);
+        mouseX = 0;
+        doWaddle = false;
+        resetWaddle();
+    }
+
+    public void EnableControlles() 
+    {
+        this.DisableControlls = false;
+    }
+
+    public bool IsDisableControlles() 
+    {
+        return this.DisableControlls;
     }
 
 }
