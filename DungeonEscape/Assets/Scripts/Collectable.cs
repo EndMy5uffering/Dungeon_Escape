@@ -8,7 +8,7 @@ public class Collectable : MonoBehaviour
     public float ColliderSize = 1f;
 
     public delegate void Collected(GameObject selfe);
-    public event Collected OnCollect;
+    public static event Collected OnCollect;
 
     public bool Animate = false;
 

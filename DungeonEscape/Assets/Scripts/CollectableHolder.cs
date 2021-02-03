@@ -16,10 +16,7 @@ public class CollectableHolder : MonoBehaviour
 
     private void Awake()
     {
-        foreach (GameObject obj in Collectables) 
-        {
-            obj.GetComponent<Collectable>().OnCollect += CollectShield;
-        }
+        Collectable.OnCollect += CollectShield;
     }
 
     public int getCurrent() 
@@ -29,6 +26,7 @@ public class CollectableHolder : MonoBehaviour
 
     public void CollectShield(GameObject obj) 
     {
+        if (!obj.tag.Equals("Shield")) return;
         if (current >= Places.Length) return;
         obj.GetComponent<Collectable>().Animate = false;
         obj.transform.SetPositionAndRotation(Places[current].transform.position, Quaternion.LookRotation(Places[current].transform.forward, Places[current].transform.up));
