@@ -29,6 +29,7 @@ public class TPStairsScript : MonoBehaviour
             this.ToScript.canTP = false;
             Vector3 newPos = ToScript.ActiveTrigger.transform.position - other.transform.position;
             other.gameObject.GetComponent<CharacterController>().Move(newPos);
+            other.gameObject.transform.rotation = Quaternion.LookRotation(selfe.transform.right, selfe.transform.up);
         } else if (!canTP && other.gameObject.tag.Equals("Player") && !selfe.gameObject.Equals(ActiveTrigger)) 
         {
             this.canTP = true;
