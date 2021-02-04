@@ -12,6 +12,8 @@ public class Spring : MonoBehaviour
     [Range(0f, 1f)]
     public float drag = 0.3f;
 
+    public float SnappingDistance = 0.1f;
+
     public GameObject Target;
 
     public bool AjustParentRotation = true;
@@ -21,18 +23,21 @@ public class Spring : MonoBehaviour
     public event TargetReached OnTargetReached;
 
     bool reached = true;
+    bool triggered = false;
 
     void Update()
     {
-        if (distToTarget() < 0.1f && !reached)
+        if (distToTarget() <= SnappingDistance && !reached)
         {
             reached = true;
             transform.position = Target.transform.position;
-            OnTargetReached?.Invoke(Target);
+           if(!triggered) OnTargetReached?.Invoke(Target);
+            triggered = true;
         }
         else 
         {
             reached = false;
+            triggered = false;
         }
 
         if (!FollowTarget) return;
