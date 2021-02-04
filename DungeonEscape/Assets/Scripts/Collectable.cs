@@ -50,6 +50,7 @@ public class Collectable : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0,1,0,1);
+        Gizmos.DrawWireSphere(transform.position, ColliderSize);
     }
 
 }

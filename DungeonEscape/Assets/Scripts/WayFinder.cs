@@ -29,7 +29,7 @@ public class WayFinder : MonoBehaviour
 
     void Update()
     {
-        if (!EnableWayFind || Targets.Length <= 0) return;
+        if (!EnableWayFind || Targets == null || Targets.Length <= 0) return;
 
         if (ArrowEnabled == false || currentTarget == null) 
         {
@@ -102,6 +102,12 @@ public class WayFinder : MonoBehaviour
 
     private GameObject[] removeObjectFromList(GameObject obj) 
     {
+        if (Targets == null || Targets.Length - 1 <= 0) 
+        {
+            ArrowEnabled = false;
+            Arrow.SetActive(false);
+            return null;
+        }
         GameObject[] temp = new GameObject[Targets.Length-1];
 
         int c = 0;
@@ -115,6 +121,7 @@ public class WayFinder : MonoBehaviour
 
     public void Collected(GameObject obj) 
     {
+        if (Targets == null || Targets.Length <= 0) return;
         Targets = removeObjectFromList(obj);
         this.currentTarget = null;
     }

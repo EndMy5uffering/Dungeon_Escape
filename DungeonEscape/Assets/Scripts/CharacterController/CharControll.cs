@@ -178,4 +178,9 @@ public class CharControll : MonoBehaviour
         return this.DisableControlls;
     }
 
+    public bool IsHuman() 
+    {
+        return this.Alive;
+    }
+
 }

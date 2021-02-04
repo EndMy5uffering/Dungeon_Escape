@@ -17,8 +17,24 @@ public class Spring : MonoBehaviour
     public bool AjustParentRotation = true;
     public bool FollowTarget = true;
 
+    public delegate void TargetReached(GameObject target);
+    public event TargetReached OnTargetReached;
+
+    bool reached = true;
+
     void Update()
     {
+        if (distToTarget() < 0.1f && !reached)
+        {
+            reached = true;
+            transform.position = Target.transform.position;
+            OnTargetReached?.Invoke(Target);
+        }
+        else 
+        {
+            reached = false;
+        }
+
         if (!FollowTarget) return;
         SpringCalc();
         if (AjustParentRotation) AjustRotation();
@@ -34,6 +50,11 @@ public class Spring : MonoBehaviour
         velocity += force;
 
         transform.position += velocity;
+    }
+
+    private float distToTarget() 
+    {
+        return (transform.position - Target.transform.position).magnitude;
     }
 
     private void AjustRotation() 
