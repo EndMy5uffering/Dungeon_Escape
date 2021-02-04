@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     private bool IsInfoBoxOnScreen = false;
     private bool InTransition = false;
     private string TempForTransition = "";
+    private List<string> InfoBoxCards;
 
     public GameObject Skip, SkipTargetOnScreen, SkipTargetOffScreen;
     private bool IsSkipOnScreen = false;
@@ -51,6 +53,11 @@ public class UIManager : MonoBehaviour
         transform.Find("InfoBox").Find("Image").Find("InfoBoxText").GetComponent<Text>().text = s;
     }
 
+    public void SetObjectiveText(string s) 
+    {
+        ObjectiveText.GetComponent<Text>().text = s;
+    }
+
     public void NextTextAnimationInfoBox(string s) 
     {
         TempForTransition = s;
@@ -68,6 +75,40 @@ public class UIManager : MonoBehaviour
         IsInfoBoxOnScreen = true;
         yield return new WaitForSeconds(0.2f);
         InTransition = false;
+    }
+
+    public void SetInfoBoxCards(List<string> cards) 
+    {
+        this.InfoBoxCards = cards;
+        InfoBoxOffScreen();
+    }
+
+    public void NextCardForInfoBox() 
+    {
+        if (this.InfoBoxCards != null && InfoBoxCards.Count > 0)
+        {
+            NextTextAnimationInfoBox(InfoBoxCards[0]);
+            InfoBoxCards.RemoveAt(0);
+        }
+        else 
+        {
+            InfoBoxCards = null;
+        }
+    }
+
+    public void PlayerInputNextCard(InputAction.CallbackContext context) 
+    {
+        if (!InfoBoxInTransition()) 
+        {
+            if (InfoBoxCards != null && InfoBoxCards.Count > 0)
+            {
+                NextCardForInfoBox();
+            }
+            else
+            {
+                InfoBoxOffScreen();
+            }
+        }
     }
 
     public bool InfoBoxInTransition() 

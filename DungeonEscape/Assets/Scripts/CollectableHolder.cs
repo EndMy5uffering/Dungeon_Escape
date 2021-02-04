@@ -9,6 +9,8 @@ public class CollectableHolder : MonoBehaviour
 
     public GameObject[] Collectables;
 
+    public GameObject Door;
+
     private int current = 0;
 
     public delegate void Full();
@@ -31,7 +33,11 @@ public class CollectableHolder : MonoBehaviour
         obj.GetComponent<Collectable>().Animate = false;
         obj.transform.SetPositionAndRotation(Places[current].transform.position, Quaternion.LookRotation(Places[current].transform.forward, Places[current].transform.up));
         current++;
-        if (!hasFreePlace()) OnFull?.Invoke(); 
+        if (!hasFreePlace()) 
+        {
+            OnFull?.Invoke();
+            this.Door.GetComponent<Door>().DoorOpen();
+        }
     }
 
     public bool hasFreePlace() 

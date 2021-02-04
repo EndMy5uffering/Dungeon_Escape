@@ -20,9 +20,11 @@ public class CutSceneOnDoorOpen : MonoBehaviour
 
     public GameObject Canvas;
 
+    public int DoorID = 0;
+
     private void Awake()
     {
-        CollectableHolder.OnFull += fullTrigger;
+        Door.OnDoorOpening += DoorOpening;
         this.camSpring = cam.GetComponent<Spring>();
         this.prefTarget = camSpring.GetTarget();
         this.prefDrag = camSpring.GetDrag();
@@ -30,9 +32,15 @@ public class CutSceneOnDoorOpen : MonoBehaviour
         Door.OnDoorIsOpen += backToPlayer;
     }
 
-    public void fullTrigger()
+    public void DoorOpening(int DoorID)
     {
+        if (this.DoorID != DoorID) 
+        {
+            return;
+        }
+        
         Started = true;
+        Skiped = false;
         Player.GetComponent<CharControll>().DisableControlles();
         camSpring.SetTarget(this.gameObject);
         cam.transform.position = transform.position + new Vector3(0, 10, 0);
@@ -45,7 +53,7 @@ public class CutSceneOnDoorOpen : MonoBehaviour
     {
         Started = false;
         if (Skiped) return;
-        if (DoorID == 0) 
+        if (this.DoorID == DoorID) 
         {
             resetPlayerCam();
         }

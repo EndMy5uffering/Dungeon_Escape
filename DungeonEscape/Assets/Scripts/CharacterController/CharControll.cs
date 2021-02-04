@@ -25,6 +25,8 @@ public class CharControll : MonoBehaviour
 
     public GameObject Head, Skull;
     public GameObject PlayerModel;
+    public GameObject ExitDoor;
+    public GameObject Canvas;
     private bool Alive = false;
 
     private float waddleTime = 0f;
@@ -35,6 +37,14 @@ public class CharControll : MonoBehaviour
 
     public bool DisableControlls = false;
 
+    private bool hasKey = false;
+
+    private int ShieldsCollected = 0;
+    private int KeysCollected = 0;
+    private int ArtefactCollected = 0;
+
+    private string objective = "Objective:\n-Shields ({SHIELDS}/4)\n-Key ({KEYS}/1)\n-Artefact ({ARTEFACT}/1)";
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -42,6 +52,10 @@ public class CharControll : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentSpeed = moveSpeed;
+
+        Collectable.OnCollect += KeyCollected;
+
+        RefreshObjectiveText();
     }
 
     void Update()
@@ -159,6 +173,36 @@ public class CharControll : MonoBehaviour
         PlayerModel.transform.rotation = Quaternion.Euler(x, y, z);
     }
 
+    public void KeyCollected(GameObject obj)
+    {
+        if (obj.tag.Equals("Key"))
+        {
+            obj.SetActive(false);
+            this.hasKey = true;
+            this.KeysCollected++;
+            RefreshObjectiveText();
+        }
+        else if (obj.tag.Equals("Artefact"))
+        {
+            HeadSwap();
+            obj.SetActive(false);
+            obj.transform.position = transform.position;
+            obj.transform.parent = obj.transform;
+            this.ArtefactCollected++;
+            RefreshObjectiveText();
+        } else if (obj.tag.Equals("Shield")) 
+        {
+            this.ShieldsCollected++;
+            RefreshObjectiveText();
+        }
+
+        if (hasKey && Alive) 
+        {
+            this.ExitDoor.GetComponent<Door>().DoorOpen();   
+        }
+
+    }
+
     public void DisableControlles() 
     {
         this.DisableControlls = true;
@@ -181,6 +225,11 @@ public class CharControll : MonoBehaviour
     public bool IsHuman() 
     {
         return this.Alive;
+    }
+
+    public void RefreshObjectiveText() 
+    {
+        Canvas.GetComponent<UIManager>().SetObjectiveText(objective.Replace("{KEYS}", this.KeysCollected+"").Replace("{SHIELDS}", this.ShieldsCollected+"").Replace("{ARTEFACT}", this.ArtefactCollected+""));
     }
 
 }

@@ -35,7 +35,6 @@ public class Door : MonoBehaviour
     {
         State0 = transform.rotation;
         State1 = transform.rotation * Quaternion.Euler(Axis * maxAngle);
-        CollectableHolder.OnFull += DoorOpen;
     }
 
     void Update()

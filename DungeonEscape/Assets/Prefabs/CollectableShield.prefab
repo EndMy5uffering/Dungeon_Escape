@@ -194,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6551341393584175783}
   - component: {fileID: 6551341393584175782}
+  - component: {fileID: 757577951581830194}
   m_Layer: 0
   m_Name: CollectableShield
   m_TagString: Shield
@@ -234,6 +235,19 @@ MonoBehaviour:
   Animate: 1
   AnimationSpeed: 1
   hoverDelta: 0.005
+--- !u!114 &757577951581830194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551341393584175781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984fbd92ed7d54042b982fb261519f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
 --- !u!1 &6938231945978691072
 GameObject:
   m_ObjectHideFlags: 0
