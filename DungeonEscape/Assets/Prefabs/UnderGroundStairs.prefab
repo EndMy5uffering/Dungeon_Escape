@@ -674,6 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3423326658288537631}
+  - component: {fileID: -3049276888759961553}
   m_Layer: 0
   m_Name: UnderGroundStairs
   m_TagString: Untagged
@@ -707,6 +708,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3049276888759961553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940525258524484649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24d3c1c41dcfb14da2376b2dacc609c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Destination: {fileID: 0}
+  TopActive: 1
 --- !u!1 &8266119916895976113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +1022,10 @@ PrefabInstance:
       propertyPath: TopActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2819900751050957646, guid: f8e1223fb9eb80f40a50c99d3f7a22fb, type: 3}
+      propertyPath: Destination
+      value: 
+      objectReference: {fileID: 6940525258524484649}
     - target: {fileID: 8622370968319285876, guid: f8e1223fb9eb80f40a50c99d3f7a22fb, type: 3}
       propertyPath: m_Name
       value: TPStair

@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24d3c1c41dcfb14da2376b2dacc609c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination: {fileID: 0}
+  Destination: {fileID: 6940525258524484649, guid: 73b48e2fd8769644da715573b58ad606, type: 3}
   TopActive: 1
 --- !u!54 &2201363479358894297
 Rigidbody:
