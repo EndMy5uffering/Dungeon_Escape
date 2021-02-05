@@ -44,6 +44,7 @@ public class IntroCutScene : MonoBehaviour
         Cam.GetComponent<Spring>().SetTarget(this.CamTargetPlayer);
         Player.GetComponent<CharControll>().EnableControlles();
         Player.GetComponent<CharControll>().EnableWayFinder();
+        Player.GetComponent<CharControll>().RefreshObjectiveText();
     }
 
     public void CardsDone() 
@@ -65,5 +66,6 @@ public class IntroCutScene : MonoBehaviour
         Player.GetComponent<CharacterController>().enabled = true;
         Cam.transform.position = gameObject.transform.position;
         Cam.transform.rotation = gameObject.transform.rotation;
+        this.IUIManager.SetObjectiveText("");
     }
 }
