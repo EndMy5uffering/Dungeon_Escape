@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class CountDownTimer : MonoBehaviour
 {
     float currentTime = 0;
-   public float startingTime = 60;
+    public float startingTime = 60;
+    float i = 1;
+    public Color newColor;
 
     public Text timer;
 
@@ -17,11 +19,21 @@ public class CountDownTimer : MonoBehaviour
 
     void Update()
     {
-        currentTime -= 1 * Time.deltaTime;
+        currentTime -= 1 * Time.deltaTime*i;
         timer.text = currentTime.ToString();
         if(currentTime <= 0)
         {
-            timer.text = "Times up";
+            timer.text = "00";
+            timer.color = new Color(1,0,0,1);
         }
+    }
+
+    void stop()
+    {
+        i = 0;
+    }
+    void start()
+    {
+        i = 1;
     }
 }
