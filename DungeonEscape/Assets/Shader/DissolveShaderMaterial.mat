@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - EdgeThickness: 0.01
     - NoiseScale: 30
-    - Time: 0.110305905
+    - Time: 0.99924946
     - Vector1_CE5CF800: 0.9950816
     - Vector1_E478CAB4: 40
     - Vector1_F1F69C7C: 0.01

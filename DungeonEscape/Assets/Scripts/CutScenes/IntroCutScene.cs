@@ -12,6 +12,9 @@ public class IntroCutScene : MonoBehaviour
 
     private UIManager IUIManager;
 
+    public delegate void IntroOver();
+    public static event IntroOver OnIntroOver;
+
     private List<string> cards = new List<string>() { "This is not the prittyest place to wake up in",
         "I should try to find a way out\n...",
         "But wait\n...", "Hold up\n...",
@@ -45,6 +48,7 @@ public class IntroCutScene : MonoBehaviour
         Player.GetComponent<CharControll>().EnableControlles();
         Player.GetComponent<CharControll>().EnableWayFinder();
         Player.GetComponent<CharControll>().RefreshObjectiveText();
+        OnIntroOver?.Invoke();
     }
 
     public void CardsDone() 
