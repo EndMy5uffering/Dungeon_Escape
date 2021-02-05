@@ -9,7 +9,7 @@ public class CutSceneOnDoorOpen : MonoBehaviour
     public Camera cam;
     public GameObject Player;
 
-    private GameObject prefTarget;
+    public GameObject prefTarget;
     private float prefDrag;
     private float prefStrength;
 
@@ -26,7 +26,6 @@ public class CutSceneOnDoorOpen : MonoBehaviour
     {
         Door.OnDoorOpening += DoorOpening;
         this.camSpring = cam.GetComponent<Spring>();
-        this.prefTarget = camSpring.GetTarget();
         this.prefDrag = camSpring.GetDrag();
         this.prefStrength = camSpring.GetStrength();
         Door.OnDoorIsOpen += backToPlayer;
