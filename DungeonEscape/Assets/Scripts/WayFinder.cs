@@ -126,4 +126,17 @@ public class WayFinder : MonoBehaviour
         this.currentTarget = null;
     }
 
+    public void DisableWayFinder() 
+    {
+        Arrow.SetActive(false);
+        this.EnableWayFind = false;
+    }
+
+    public void EnableWayFinder() 
+    {
+        Arrow.SetActive(false);
+        this.EnableWayFind = true;
+        this.ArrowEnabled = false;
+    }
+
 }

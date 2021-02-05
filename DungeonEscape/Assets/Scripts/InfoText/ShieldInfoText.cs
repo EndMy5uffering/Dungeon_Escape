@@ -5,10 +5,12 @@ using UnityEngine;
 public class ShieldInfoText : MonoBehaviour
 {
     private List<List<string>> shieldInfo = new List<List<string>>() {
-        new List<string>() { "This looks important\nPerhaps i should find more of them?", "This is sample text!" },
-        new List<string>() { "This is looking good :D"}};
+        new List<string>() { "This looks important\nPerhaps i should find more of them?" },
+        new List<string>() { "Good!"},
+        new List<string>() { "One step closer to beeing releasd from this place."},
+        new List<string>() { "Now we are getting somewhere."}};
 
-    public static int ShieldInfo = 0;
+    public static int ShieldInfoCount = 0;
 
     public GameObject Canvas;
 
@@ -21,10 +23,10 @@ public class ShieldInfoText : MonoBehaviour
 
     public void collected(GameObject obj) 
     {
-        if (obj.tag.Equals("Shield") && ShieldInfo <= 1 && prefTrigger != obj) 
+        if (obj.tag.Equals("Shield") && ShieldInfoCount < shieldInfo.Count && prefTrigger != obj) 
         {
             prefTrigger = obj;
-            Canvas.GetComponent<UIManager>().SetInfoBoxCards(shieldInfo[ShieldInfo++]);
+            Canvas.GetComponent<UIManager>().SetInfoBoxCards(shieldInfo[ShieldInfoCount++]);
             Canvas.GetComponent<UIManager>().NextCardForInfoBox();
         }
     }

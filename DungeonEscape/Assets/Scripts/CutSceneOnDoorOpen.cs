@@ -41,7 +41,7 @@ public class CutSceneOnDoorOpen : MonoBehaviour
         
         Started = true;
         Skiped = false;
-        Player.GetComponent<CharControll>().DisableControlles();
+        Player.GetComponent<CharControll>().DisablePlayer();
         camSpring.SetTarget(this.gameObject);
         cam.transform.position = transform.position + new Vector3(0, 10, 0);
         camSpring.SetDrag(0.001f);
@@ -64,7 +64,7 @@ public class CutSceneOnDoorOpen : MonoBehaviour
         camSpring.SetDrag(prefDrag);
         camSpring.SetStrength(prefStrength);
         camSpring.SetTarget(prefTarget);
-        Player.GetComponent<CharControll>().EnableControlles();
+        Player.GetComponent<CharControll>().EnablePlayer();
         cam.transform.position = prefTarget.transform.position;
         cam.transform.rotation = prefTarget.transform.rotation;
         Canvas.GetComponent<UIManager>().SkipTextOffScreen();

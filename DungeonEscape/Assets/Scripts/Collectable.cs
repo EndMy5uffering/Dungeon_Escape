@@ -10,6 +10,7 @@ public class Collectable : MonoBehaviour
     public delegate void Collected(GameObject selfe);
     public static event Collected OnCollect;
 
+    public bool CanCollect = true;
     public bool Animate = false;
 
     public float AnimationSpeed = 1f;
@@ -44,7 +45,17 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnCollect?.Invoke(this.transform.gameObject);
+        if(CanCollect) OnCollect?.Invoke(this.transform.gameObject);
+    }
+
+    public bool IsCanCollect() 
+    {
+        return CanCollect;
+    }
+
+    public void SetCanCollect(bool canCollect) 
+    {
+        this.CanCollect = canCollect;
     }
 
     private void OnDrawGizmosSelected()

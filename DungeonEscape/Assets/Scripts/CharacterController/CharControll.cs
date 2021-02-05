@@ -232,4 +232,28 @@ public class CharControll : MonoBehaviour
         Canvas.GetComponent<UIManager>().SetObjectiveText(objective.Replace("{KEYS}", this.KeysCollected+"").Replace("{SHIELDS}", this.ShieldsCollected+"").Replace("{ARTEFACT}", this.ArtefactCollected+""));
     }
 
+    public void DisableWayFinder() 
+    {
+        gameObject.GetComponent<WayFinder>().DisableWayFinder();
+    }
+
+    public void EnableWayFinder() 
+    {
+        gameObject.GetComponent<WayFinder>().EnableWayFinder();
+    }
+
+    public void DisablePlayer() 
+    {
+        DisableControlles();
+        DisableWayFinder();
+        this.PlayerModel.SetActive(false);
+    }
+
+    public void EnablePlayer() 
+    {
+        EnableControlles();
+        EnableWayFinder();
+        this.PlayerModel.SetActive(true);
+    }
+
 }

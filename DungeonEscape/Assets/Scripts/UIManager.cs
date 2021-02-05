@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private bool InTransition = false;
     private string TempForTransition = "";
     private List<string> InfoBoxCards;
+    private int cardCount = 0;
 
     public GameObject Skip, SkipTargetOnScreen, SkipTargetOffScreen;
     private bool IsSkipOnScreen = false;
@@ -80,27 +81,33 @@ public class UIManager : MonoBehaviour
     public void SetInfoBoxCards(List<string> cards) 
     {
         this.InfoBoxCards = cards;
+        cardCount = 0;
         InfoBoxOffScreen();
     }
 
     public void NextCardForInfoBox() 
     {
-        if (this.InfoBoxCards != null && InfoBoxCards.Count > 0)
+        if (this.InfoBoxCards != null && InfoBoxCards.Count > 0 && cardCount < InfoBoxCards.Count)
         {
-            NextTextAnimationInfoBox(InfoBoxCards[0]);
-            InfoBoxCards.RemoveAt(0);
+            NextTextAnimationInfoBox(InfoBoxCards[cardCount++]);
         }
         else 
         {
             InfoBoxCards = null;
+            cardCount = 0;
         }
+    }
+
+    public bool InfoBoxHasCards() 
+    {
+        return this.InfoBoxCards != null && this.InfoBoxCards.Count > 0;
     }
 
     public void PlayerInputNextCard(InputAction.CallbackContext context) 
     {
         if (!InfoBoxInTransition()) 
         {
-            if (InfoBoxCards != null && InfoBoxCards.Count > 0)
+            if (InfoBoxCards != null && InfoBoxCards.Count > 0 && cardCount < InfoBoxCards.Count)
             {
                 NextCardForInfoBox();
             }
