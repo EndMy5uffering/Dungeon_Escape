@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class audioScript : MonoBehaviour
 {
+    bool introDone=false;
     System.Random rnd;
     public AudioSource audioSource;
     public List<AudioClip> clips;
@@ -14,23 +16,33 @@ public class audioScript : MonoBehaviour
     void Start()
     {
         rnd = new System.Random();
+        IntroCutScene.OnIntroOver += IntroOver;
+    }
+
+   void IntroOver()
+    {
+        introDone = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!audioSource.isPlaying)
+        if (introDone)
         {
-            int i = cur;
-            while (i == cur)
+            if (!audioSource.isPlaying)
             {
-                i = rnd.Next(clips.Count);
-            }
+                int i = cur;
+                while (i == cur)
+                {
+                    i = rnd.Next(clips.Count);
+                }
 
-            cur = i;
-            audioSource.clip = clips[cur];     
-            audioSource.Play();
+                cur = i;
+                audioSource.clip = clips[cur];
+                audioSource.Play();
+            }
         }
+      
     }
 
  
