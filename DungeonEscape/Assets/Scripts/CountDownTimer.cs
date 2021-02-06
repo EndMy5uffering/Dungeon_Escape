@@ -9,31 +9,50 @@ public class CountDownTimer : MonoBehaviour
     public float startingTime = 60;
     float i = 1;
     public Color newColor;
+    public Color baseColor;
 
-    public Text timer;
+    public GameObject timer;
+
+    public int TimerID = 0;
+
+    public delegate void TimesUp(int TimerID);
+    public static event TimesUp OnTimesUp;
 
     void Start()
     {
-        currentTime = startingTime;
+        resetTimer();
     }
 
     void Update()
     {
-        currentTime -= 1 * Time.deltaTime*i;
-        timer.text = currentTime.ToString();
-        if(currentTime <= 0)
+        if (i != 0) 
         {
-            timer.text = "00";
-            timer.color = new Color(1,0,0,1);
+            currentTime -= Time.deltaTime * i;
+            timer.GetComponent<Text>().text = ((int)currentTime) + "";
+            if (currentTime <= 0)
+            {
+                timer.GetComponent<Text>().text = "00";
+                timer.GetComponent<Text>().color = new Color(1, 0, 0, 1);
+                i = 0;
+            }
         }
     }
 
-    void stop()
+    public void stop()
     {
         i = 0;
     }
-    void start()
+
+    public void start()
     {
         i = 1;
+    }
+
+    public void resetTimer() 
+    {
+        i = 0;
+        currentTime = startingTime;
+        timer.GetComponent<Text>().text = "" + currentTime;
+        timer.GetComponent<Text>().color = new Color(1, 1, 1, 1);
     }
 }

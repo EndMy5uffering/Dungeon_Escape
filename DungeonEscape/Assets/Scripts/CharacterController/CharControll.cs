@@ -28,6 +28,7 @@ public class CharControll : MonoBehaviour
     public GameObject ExitDoor;
     public GameObject Canvas;
     private bool Alive = false;
+    private bool Revival = false;
 
     private float waddleTime = 0f;
     public float waddleSpeed = 5f;
@@ -44,6 +45,9 @@ public class CharControll : MonoBehaviour
     private int ArtefactCollected = 0;
 
     private string objective = "Objective:\n-Shields ({SHIELDS}/4)\n-Key ({KEYS}/1)\n-Artefact ({ARTEFACT}/1)";
+
+    public delegate void RevivalCutScene(GameObject artefact);
+    public static event RevivalCutScene OnRevivalCutScene;
 
     private void Awake()
     {
@@ -120,7 +124,7 @@ public class CharControll : MonoBehaviour
         float dt = Time.deltaTime;
         Vector3 dir = transform.forward * moveVel.x + transform.up * moveVel.y + transform.right * moveVel.z;
         dir *= currentSpeed * dt;
-        controller.Move(dir);
+        if(controller.enabled) controller.Move(dir);
     }
 
     public void OnJump(InputAction.CallbackContext context) 
@@ -147,8 +151,8 @@ public class CharControll : MonoBehaviour
     public void HeadSwap() 
     {
         Alive = !Alive;
-        Head.SetActive(Alive);
-        Skull.SetActive(!Alive);
+        Head.GetComponent<DissolveScript>().AnimateIn();
+        Skull.GetComponent<DissolveScript>().AnimateOut();
     }
 
     private void waddle() 
@@ -184,10 +188,8 @@ public class CharControll : MonoBehaviour
         }
         else if (obj.tag.Equals("Artefact"))
         {
-            HeadSwap();
-            obj.SetActive(false);
-            obj.transform.position = transform.position;
-            obj.transform.parent = obj.transform;
+            obj.GetComponent<Collider>().enabled = false;
+            OnRevivalCutScene?.Invoke(obj);
             this.ArtefactCollected++;
             RefreshObjectiveText();
         } else if (obj.tag.Equals("Shield")) 
@@ -195,12 +197,6 @@ public class CharControll : MonoBehaviour
             this.ShieldsCollected++;
             RefreshObjectiveText();
         }
-
-        if (hasKey && Alive) 
-        {
-            this.ExitDoor.GetComponent<Door>().DoorOpen();   
-        }
-
     }
 
     public void DisableControlles() 
@@ -254,6 +250,11 @@ public class CharControll : MonoBehaviour
         EnableControlles();
         EnableWayFinder();
         this.PlayerModel.SetActive(true);
+    }
+
+    public bool CanOpenExit() 
+    {
+        return hasKey && Alive;
     }
 
 }

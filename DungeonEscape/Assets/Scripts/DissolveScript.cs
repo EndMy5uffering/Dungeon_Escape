@@ -6,7 +6,11 @@ public class DissolveScript : MonoBehaviour
 {
     public Material[] Shader;
 
-    float time = 0f;
+    public float time = 0f;
+
+    public float AnimationSpeed = 1f;
+
+    private int dir = 0;
 
     private void Awake()
     {
@@ -20,8 +24,20 @@ public class DissolveScript : MonoBehaviour
 
     private void Update()
     {
-        steper += Time.deltaTime*2f;
-        SetTime((0.5f * Mathf.Sin(steper)) + 0.5f);
+        if (dir != 0)
+        {
+            time += Time.deltaTime * AnimationSpeed * dir;
+            if (time > 1 || time < 0) 
+            {
+                time = (time >= 1 ? 1 : 0);
+                dir = 0;
+                SetTime(time);
+                return;
+            }
+
+            SetTime(time);
+
+        }
     }
 
     public void SetTime(float time) 
@@ -31,6 +47,26 @@ public class DissolveScript : MonoBehaviour
         {
             m.SetFloat("Time", time);
         }
+    }
+
+    public void AnimateIn() 
+    {
+        dir = -1;
+    }
+
+    public bool CanAnimateIn() 
+    {
+        return !(time > 0);
+    }
+
+    public void AnimateOut() 
+    {
+        dir = 1;
+    }
+
+    public bool CanAnimateOut()
+    {
+        return !(time < 1);
     }
 
     public float GetTime() 

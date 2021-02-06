@@ -46,6 +46,7 @@ public class CutSceneOnDoorOpen : MonoBehaviour
         camSpring.SetDrag(0.001f);
         camSpring.SetStrength(0.005f);
         Canvas.GetComponent<UIManager>().SkipTextOnScreen();
+        Canvas.GetComponent<CountDownTimer>().stop();
     }
 
     public void backToPlayer(int DoorID) 
@@ -56,6 +57,8 @@ public class CutSceneOnDoorOpen : MonoBehaviour
         {
             resetPlayerCam();
         }
+        if (Player.GetComponent<CharControll>().IsHuman())
+            Canvas.GetComponent<CountDownTimer>().start();
     }
 
     private void resetPlayerCam() 

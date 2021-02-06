@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
 
-    public GameObject InfoBox, InfoBoxTargetOnScreen, InfoBoxTargetOffScreen;
+    public GameObject InfoBox, InfoBoxTargetOnScreen, InfoBoxTargetOffScreen, TimerText, TimerTextOnScreenTarget, TimerTextOffScreenTarget;
     private bool IsInfoBoxOnScreen = false;
     private bool InTransition = false;
     private string TempForTransition = "";
@@ -50,6 +50,16 @@ public class UIManager : MonoBehaviour
     {
         Skip.GetComponent<Spring>().SetTarget(SkipTargetOffScreen);
         IsSkipOnScreen = false;
+    }
+
+    public void TimerTextOnScreen() 
+    {
+        this.TimerText.GetComponent<Spring>().SetTarget(this.TimerTextOnScreenTarget);
+    }
+
+    public void TimerTextOffScreen()
+    {
+        this.TimerText.GetComponent<Spring>().SetTarget(this.TimerTextOffScreenTarget);
     }
 
     public void SetInfoBoxText(string s) 
