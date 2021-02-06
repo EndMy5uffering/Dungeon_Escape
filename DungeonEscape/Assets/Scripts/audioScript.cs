@@ -6,6 +6,7 @@ using System;
 
 public class audioScript : MonoBehaviour
 {
+    public AudioClip intro;
     bool introDone=false;
     System.Random rnd;
     public AudioSource audioSource;
@@ -15,6 +16,8 @@ public class audioScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.clip = intro;
+        audioSource.Play();
         rnd = new System.Random();
         IntroCutScene.OnIntroOver += IntroOver;
     }
@@ -42,7 +45,6 @@ public class audioScript : MonoBehaviour
                 audioSource.Play();
             }
         }
-      
     }
 
  

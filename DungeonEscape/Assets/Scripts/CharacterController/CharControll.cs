@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CharControll : MonoBehaviour
 {
+    public AudioSource steps;
+
     private Vector3 moveVel = new Vector3(0, 0, 0);
     private float jump = 0.0f;
     public float moveSpeed = 1f;
@@ -80,12 +82,18 @@ public class CharControll : MonoBehaviour
         if (!(dir.x == 0.0f && dir.y == 0.0f))
         {
             doWaddle = true;
+            if (!steps.isPlaying)
+            {
+                steps.Play();
+            }
         }
         if(dir.x == 0.0f && dir.y == 0.0f)
         {
             doWaddle = false;
+            steps.Pause();
         }
         if (!doWaddle) resetWaddle();
+ 
         prefPresed = dir;
     }
 
@@ -123,8 +131,8 @@ public class CharControll : MonoBehaviour
         if (DisableControlls) return;
         float dt = Time.deltaTime;
         Vector3 dir = transform.forward * moveVel.x + transform.up * moveVel.y + transform.right * moveVel.z;
-        dir *= currentSpeed * dt;
-        if(controller.enabled) controller.Move(dir);
+        dir *= currentSpeed * dt; 
+        if (controller.enabled) controller.Move(dir);
     }
 
     public void OnJump(InputAction.CallbackContext context) 
