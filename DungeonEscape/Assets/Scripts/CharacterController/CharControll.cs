@@ -129,10 +129,12 @@ public class CharControll : MonoBehaviour
         if (sprinting)
         {
             steps.clip = sprint;
+            steps.Play();
         }
         else
         {
             steps.clip = walk;
+            steps.Play();
         }
     }
 
