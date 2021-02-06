@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class CharControll : MonoBehaviour
 {
     public AudioSource steps;
+    public AudioClip walk;
+    public AudioClip sprint;
 
     private Vector3 moveVel = new Vector3(0, 0, 0);
     private float jump = 0.0f;
@@ -124,6 +126,14 @@ public class CharControll : MonoBehaviour
     {
         sprinting = context.ReadValueAsButton();
         currentSpeed = sprinting ? SprintSpeed : moveSpeed;
+        if (sprinting)
+        {
+            steps.clip = sprint;
+        }
+        else
+        {
+            steps.clip = walk;
+        }
     }
 
     private void moveChar() 
