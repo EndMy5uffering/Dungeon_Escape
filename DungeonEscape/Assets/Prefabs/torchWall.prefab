@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4333496763868523787}
   - component: {fileID: 832171755853259438}
   - component: {fileID: 3199948841309689444}
+  - component: {fileID: 2517210921091958061}
   m_Layer: 0
   m_Name: torchWall
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2517210921091958061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992578458537457585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557ea2267b4a7a143af5d37b31595b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveOnStart: 0
+  TriggerRadius: 8
+  IsTrigger: 1
+  Light: {fileID: 4298990572241918764}
+  LightSphere: {fileID: 4163143283010185019}
+  color: {r: 1, g: 0.17541835, b: 0, a: 0}
+  LightRadius: 10
+  LightIntensity: 4
+  flicker: 1
 --- !u!1 &4163143283010185019
 GameObject:
   m_ObjectHideFlags: 0
