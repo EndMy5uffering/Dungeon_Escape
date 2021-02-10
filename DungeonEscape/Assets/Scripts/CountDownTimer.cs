@@ -17,7 +17,7 @@ public class CountDownTimer : MonoBehaviour
 
     public delegate void TimesUp(int TimerID);
     public static event TimesUp OnTimesUp;
-
+    
     void Start()
     {
         resetTimer();
@@ -34,6 +34,7 @@ public class CountDownTimer : MonoBehaviour
                 timer.GetComponent<Text>().text = "00";
                 timer.GetComponent<Text>().color = new Color(1, 0, 0, 1);
                 i = 0;
+                OnTimesUp?.Invoke(TimerID);
             }
         }
     }

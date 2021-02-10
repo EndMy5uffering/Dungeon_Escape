@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IntroCutScene : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class IntroCutScene : MonoBehaviour
 
     public delegate void IntroOver();
     public static event IntroOver OnIntroOver;
+
+    private bool over = false;
 
     private List<string> cards = new List<string>() { "This is not the prittyest place to wake up in",
         "I should try to find a way out\n...",
@@ -44,11 +47,18 @@ public class IntroCutScene : MonoBehaviour
     public IEnumerator WaitUntilCamTarget() 
     {
         yield return new WaitForSeconds(1f);
+        PlayerSetup();
+    }
+
+    public void PlayerSetup()
+    {
+        over = true;
         Cam.GetComponent<Spring>().SetTarget(this.CamTargetPlayer);
         Player.GetComponent<CharControll>().EnableControlles();
         Player.GetComponent<CharControll>().EnableWayFinder();
         Player.GetComponent<CharControll>().RefreshObjectiveText();
         OnIntroOver?.Invoke();
+        this.IUIManager.SkipTextOffScreen();
     }
 
     public void CardsDone() 
@@ -71,5 +81,17 @@ public class IntroCutScene : MonoBehaviour
         Cam.transform.position = gameObject.transform.position;
         Cam.transform.rotation = gameObject.transform.rotation;
         this.IUIManager.SetObjectiveText("");
+        this.IUIManager.SkipTextOnScreen();
     }
+
+    public void SkipIntro(InputAction.CallbackContext context) 
+    {
+        if (!over) 
+        {
+            IUIManager.OnInfoBoxCardsEmpty -= CardsDone;
+            IUIManager.ResetInfoCards();
+            PlayerSetup();
+        }   
+    }
+
 }

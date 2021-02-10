@@ -20,6 +20,8 @@ public class PlayerRevival : MonoBehaviour
     private GameObject Artefact;
     private GameObject camPrefTarget;
 
+    public bool playerWasRevied = false;
+
     private void Awake()
     {
         CharControll.OnRevivalCutScene += OnSceneStart;
@@ -67,17 +69,29 @@ public class PlayerRevival : MonoBehaviour
 
     public void OnSceneStart(GameObject obj) 
     {
-        this.Artefact = obj;
-        Player.GetComponent<CharControll>().DisableControlles();
-        Player.GetComponent<CharControll>().DisableWayFinder();
-        this.camPrefTarget = cam.GetComponent<Spring>().GetTarget();
-        cam.GetComponent<Spring>().SetTarget(this.gameObject);
-        Player.GetComponent<CharacterController>().enabled = false;
-        Player.transform.position = PlayerSmapPoint.transform.position;
-        Player.transform.rotation = PlayerSmapPoint.transform.rotation;
-        Player.GetComponent<CharacterController>().enabled = true;
-        Canvas.GetComponent<UIManager>().OnInfoBoxCardsEmpty += Cards;
-        Canvas.GetComponent<UIManager>().SetInfoBoxCards(ICards[count++]);
-        Canvas.GetComponent<UIManager>().NextCardForInfoBox();
+        if (!playerWasRevied)
+        {
+            playerWasRevied = true;
+            this.Artefact = obj;
+            Player.GetComponent<CharControll>().DisableControlles();
+            Player.GetComponent<CharControll>().DisableWayFinder();
+            this.camPrefTarget = cam.GetComponent<Spring>().GetTarget();
+            cam.GetComponent<Spring>().SetTarget(this.gameObject);
+            Player.GetComponent<CharacterController>().enabled = false;
+            Player.transform.position = PlayerSmapPoint.transform.position;
+            Player.transform.rotation = PlayerSmapPoint.transform.rotation;
+            Player.GetComponent<CharacterController>().enabled = true;
+            Canvas.GetComponent<UIManager>().OnInfoBoxCardsEmpty += Cards;
+            Canvas.GetComponent<UIManager>().SetInfoBoxCards(ICards[count++]);
+            Canvas.GetComponent<UIManager>().NextCardForInfoBox();
+        }
+        else 
+        {
+            Player.GetComponent<CharControll>().HeadSwap();
+            this.Artefact.GetComponent<DissolveScript>().AnimateOut();
+            Canvas.GetComponent<UIManager>().TimerTextOnScreen();
+            Canvas.GetComponent<CountDownTimer>().start();
+        }
+        
     }
 }

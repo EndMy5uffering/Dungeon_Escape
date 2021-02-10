@@ -107,9 +107,7 @@ public class UIManager : MonoBehaviour
         else 
         {
             if (this.InfoBoxCards != null) OnInfoBoxCardsEmpty?.Invoke();
-            InfoBoxCards = null;
-            cardCount = 0;
-            InfoBoxOffScreen();
+            SetInfoBoxCards(null);
         }
     }
 
@@ -136,5 +134,11 @@ public class UIManager : MonoBehaviour
     public bool InfoBoxInTransition() 
     {
         return InTransition;
+    }
+
+    public void ResetInfoCards() 
+    {
+        if (this.InfoBoxCards != null) OnInfoBoxCardsEmpty?.Invoke();
+        SetInfoBoxCards(null);
     }
 }

@@ -12,6 +12,7 @@ public class ExitDoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        this.gameObject.SetActive(false);
         if (other.gameObject.tag.Equals("Player")) 
         {
             if (other.gameObject.GetComponent<CharControll>().CanOpenExit())

@@ -171,8 +171,17 @@ public class CharControll : MonoBehaviour
     public void HeadSwap() 
     {
         Alive = !Alive;
-        Head.GetComponent<DissolveScript>().AnimateIn();
-        Skull.GetComponent<DissolveScript>().AnimateOut();
+        if (Alive)
+        {
+            Head.GetComponent<DissolveScript>().AnimateIn();
+            Skull.GetComponent<DissolveScript>().AnimateOut();
+        }
+        else
+        {
+            Head.GetComponent<DissolveScript>().AnimateOut();
+            Skull.GetComponent<DissolveScript>().AnimateIn();
+        }
+        Canvas.GetComponent<CountDownTimer>().resetTimer();
     }
 
     private void waddle() 
@@ -275,6 +284,12 @@ public class CharControll : MonoBehaviour
     public bool CanOpenExit() 
     {
         return hasKey && Alive;
+    }
+
+    public void ArtefactLost() 
+    {
+        this.ArtefactCollected--;
+        RefreshObjectiveText();
     }
 
 }
